@@ -99,11 +99,11 @@ echo "/////
 import Foundation
 
 public struct PackageBuild: Sendable {
-    public let isDirty: Bool       // Dirty build - git directory is't clean.
+    public let isDirty: Bool       // Dirty build - git directory isn't clean.
     public let timeStamp: Date     // Time of last commit
     public let timeZone: TimeZone  // Time Zone
     public let count: Int          // Total commit count
-    public let tag: String?        // Tag, if exist
+    public let tag: String?        // Tag, if exists
     public let countSinceTag: Int  // Commit count since tag
     public let branch: String?     // Git branch name
     public let digest: [UInt8]     // Latest commit sha1 digest (20 bytes)
