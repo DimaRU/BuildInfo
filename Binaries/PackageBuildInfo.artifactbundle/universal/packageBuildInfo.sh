@@ -6,8 +6,8 @@
 #
 # Copyright © 2024 Dmitriy Borovikov. All rights reserved.
 #
-if [[ $# != 2 ]]; then
-    echo "USAGE: packageBuildInfo <git directory> <output file>"
+if [[ $# != 3 ]]; then
+    echo "USAGE: packageBuildInfo <git directory> <output file> <module name>"
     exit 1
 fi
 
@@ -83,6 +83,7 @@ countSinceTag="0"
 tag="nil"
 digest=""
 digestS="[]"
+moduleName=\"$3\"
 
 TZO=$(date +%z)
 TZSIGN=${TZO:0:1}1
@@ -107,6 +108,7 @@ public struct PackageBuild: Sendable {
     public let countSinceTag: Int  // Commit count since tag
     public let branch: String?     // Git branch name
     public let digest: [UInt8]     // Latest commit sha1 digest (20 bytes)
+    public let moduleName: String  // Module name
 
     public var commit: String {
         digest.reduce(\"\") { \$0 + String(format: \"%02x\", \$1) }
@@ -119,5 +121,6 @@ public struct PackageBuild: Sendable {
                               tag: $tag,
                               countSinceTag: $countSinceTag,
                               branch: $branch,
-                              digest: $digestS)
+                              digest: $digestS,
+                              moduleName: $moduleName)
 }" >"$2"
